@@ -1,0 +1,10 @@
+---
+- name: Print host information
+  debug:
+    msg: |
+      Hostname: {{ ansible_hostname }}
+      OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
+      Kernel: {{ ansible_kernel }}
+      Architecture: {{ ansible_architecture }}
+      Total Memory: {{ ansible_memtotal_mb }} MB
+      CPU(s): {{ ansible_processor_vcpus }}

@@ -1,0 +1,9 @@
+---
+- name: Check if Nginx is running
+  shell: docker ps --filter "name=flask_app_nginx_1" --filter "status=running" -q
+  register: nginx_status
+  changed_when: false
+
+- name: Restart Nginx container if not running
+  shell: docker restart flask_app_nginx_1
+  when: nginx_status.stdout == ""

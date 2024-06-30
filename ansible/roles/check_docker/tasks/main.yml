@@ -1,0 +1,9 @@
+---
+- name: Check if Docker is installed
+  command: docker --version
+  register: docker_version
+  ignore_errors: yes
+
+- name: Display Docker status
+  debug:
+    msg: "Docker is installed: {{ docker_version.rc == 0 }}"

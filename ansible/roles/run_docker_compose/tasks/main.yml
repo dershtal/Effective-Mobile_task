@@ -1,0 +1,16 @@
+---
+- name: Change to application directory
+  ansible.builtin.shell: cd /opt/flask_app
+  args:
+    chdir: /opt/flask_app
+
+- name: Run docker-compose up --build
+  ansible.builtin.shell: sudo docker-compose up --build
+  args:
+    chdir: /opt/flask_app
+  register: docker_compose_output
+  ignore_errors: yes
+
+- name: Print docker-compose logs
+  debug:
+    var: docker_compose_output.stdout_lines

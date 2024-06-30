@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Sergey Pozhidaev
+  description: Role to restart Nginx container if necessary
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+
+dependencies: []

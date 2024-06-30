@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Animation</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .console {
+            display: flex;
+            flex-direction: column;
+            font-size: 2em;
+        }
+
+        .cursor {
+            width: 10px;
+            height: 1em;
+            background-color: white;
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="console">
+        <div>
+            <span>&gt;</span>
+            <span id="text1"></span>
+            <div class="cursor" id="cursor1"></div>
+        </div>
+        <div>
+            <span>&gt;</span>
+            <span id="text2"></span>
+            <div class="cursor" id="cursor2" style="display: none;"></div>
+        </div>
+    </div>
+    <script>
+        const textElement1 = document.getElementById('text1');
+        const textElement2 = document.getElementById('text2');
+        const cursor1 = document.getElementById('cursor1');
+        const cursor2 = document.getElementById('cursor2');
+
+        const messages = ['Hello World', 'работу выполнил Пожидаев С.Д.'];
+        let currentMessage = 0;
+        let index = 0;
+
+        function typeMessage(message, element, callback) {
+            if (index < message.length) {
+                element.textContent += message[index];
+                index++;
+                setTimeout(() => typeMessage(message, element, callback), 200);
+            } else {
+                if (callback) {
+                    callback();
+                }
+            }
+        }
+
+        function startTyping() {
+            typeMessage(messages[0], textElement1, () => {
+                cursor1.style.display = 'none';
+                cursor2.style.display = 'inline-block';
+                index = 0; // Reset index for the next message
+                setTimeout(() => typeMessage(messages[1], textElement2), 500); // Delay before starting the second message
+            });
+        }
+
+        startTyping();
+    </script>
+</body>
+</html>

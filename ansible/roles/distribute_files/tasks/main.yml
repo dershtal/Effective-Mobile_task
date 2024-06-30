@@ -1,0 +1,20 @@
+---
+- name: Create target directory on the remote server
+  file:
+    path: /opt/flask_app
+    state: directory
+    mode: '0755'
+
+- name: Copy application directory to the remote server
+  copy:
+    src: "{{ playbook_dir }}/../src/"
+    dest: /opt/flask_app/
+    mode: '0644'
+    remote_src: no
+
+- name: Verify files were copied
+  shell: "test -f /opt/flask_app/{{ item | basename }}"
+  register: verify_files
+  ignore_errors: yes
+  with_fileglob:
+    - "{{ playbook_dir }}/../src/*"

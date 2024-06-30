@@ -1,0 +1,11 @@
+---
+- name: Gather and Print Host Information
+  hosts: all
+  become: yes
+  roles:
+    - host_info
+    - check_docker
+    - install_docker
+    - distribute_files
+    - run_docker_compose
+    - restart_nginx
